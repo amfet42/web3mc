@@ -1,10 +1,10 @@
 [tool.poetry]
 name = "web3mc"
-version = "0.1.1"
+version = "0.1.2"
 description = "Multicall library for aggregating web3py contract calls"
 authors = ["amfet42"]
 license = "MIT"
-readme = "README.MD"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"

@@ -148,7 +148,9 @@ class Network(IntEnum):
     Fuse = 122
     Heco = 128
     Polygon = 137
+    Xlayer = 196
     Fantom = 250
+    Fraxtal = 252
     Boba = 288
     KCC = 321
     OptimismGorli = 420
@@ -242,7 +244,9 @@ MULTICALL3_ADDRESSES: Dict[int, str] = {
     Network.Fuse: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Heco: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Polygon: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    Network.Xlayer: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Fantom: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    Network.Fraxtal: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Boba: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.KCC: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.OptimismGorli: "0xcA11bde05977b3631167028862bE2a173976CA11",

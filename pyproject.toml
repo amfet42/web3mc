@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "web3mc"
-version = "0.1.7"
+version = "0.1.8"
 description = "Multicall library for aggregating web3py contract calls"
 authors = ["amfet42"]
 license = "MIT"

@@ -152,7 +152,9 @@ class Network(IntEnum):
     Fantom = 250
     Fraxtal = 252
     Boba = 288
+    ZKsyncSepolia = 300
     KCC = 321
+    ZkSync = 324
     OptimismGorli = 420
     Astar = 592
     Metis = 1088
@@ -197,6 +199,7 @@ MULTICALL_ADDRESSES: Dict[int, str] = {
     Network.Optimism: "0x187C0F98FEF80E87880Db50241D40551eDd027Bf",
     Network.OptimismKovan: "0x2DC0E2aa608532Da689e89e237dF582B783E552C",
     Network.Kava: "0x7ED7bBd8C454a1B0D9EdD939c45a81A03c20131C",
+    Network.ZkSync: "0x52806DC8c5Cb95a560039409FE2e1C29d9eBb22f",
 }
 
 MULTICALL2_ADDRESSES: Dict[int, str] = {
@@ -217,6 +220,7 @@ MULTICALL2_ADDRESSES: Dict[int, str] = {
     Network.Optimism: "0x2DC0E2aa608532Da689e89e237dF582B783E552C",
     Network.OptimismKovan: "0x2DC0E2aa608532Da689e89e237dF582B783E552C",
     Network.Kava: "0x45be772faE4a9F31401dfF4738E5DC7DD439aC0b",
+    Network.ZkSync: "0xDED0Aa78681A5AbF85D830D4478cf4acF00Ec4a4",
 }
 
 # based on https://github.com/mds1/multicall#readme
@@ -249,6 +253,7 @@ MULTICALL3_ADDRESSES: Dict[int, str] = {
     Network.Fraxtal: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Boba: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.KCC: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    Network.ZkSync: "0x413fEb613604D46586c22801949A5b88b224c260",
     Network.OptimismGorli: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Astar: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Metis: "0xcA11bde05977b3631167028862bE2a173976CA11",
@@ -277,4 +282,13 @@ MULTICALL3_ADDRESSES: Dict[int, str] = {
     Network.Harmony: "0xcA11bde05977b3631167028862bE2a173976CA11",
 }
 
-NO_STATE_OVERRIDE = [Network.Gnosis, Network.Harmony, Network.Moonbeam, Network.Moonriver, Network.Kovan, Network.Fuse]
+NO_STATE_OVERRIDE = [
+    Network.Gnosis,
+    Network.Harmony,
+    Network.Moonbeam,
+    Network.Moonriver,
+    Network.Kovan,
+    Network.Fuse,
+    Network.ZkSync,
+    Network.ZKsyncSepolia,
+]

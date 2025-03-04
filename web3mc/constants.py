@@ -148,6 +148,7 @@ class Network(IntEnum):
     Fuse = 122
     Heco = 128
     Polygon = 137
+    Sonic = 146
     Xlayer = 196
     Fantom = 250
     Fraxtal = 252
@@ -174,12 +175,15 @@ class Network(IntEnum):
     Oasis = 42262
     AvalancheFuji = 43113
     Avax = 43114
+    Ink = 57073
     GodwokenTestnet = 71401
     Godwoken = 71402
     Mumbai = 80001
+    Taiko = 167000
     ArbitrumRinkeby = 421611
     ArbitrumGorli = 421613
     Sepolia = 11155111
+    Corn = 21000000
     Aurora = 1313161554
     Harmony = 1666600000
 
@@ -248,6 +252,7 @@ MULTICALL3_ADDRESSES: Dict[int, str] = {
     Network.Fuse: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Heco: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Polygon: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    Network.Sonic: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Xlayer: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Fantom: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Fraxtal: "0xcA11bde05977b3631167028862bE2a173976CA11",
@@ -272,12 +277,15 @@ MULTICALL3_ADDRESSES: Dict[int, str] = {
     Network.Oasis: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.AvalancheFuji: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Avax: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    Network.Ink: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.GodwokenTestnet: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Godwoken: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Mumbai: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    Network.Taiko: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.ArbitrumRinkeby: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.ArbitrumGorli: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Sepolia: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    Network.Corn: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Aurora: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Harmony: "0xcA11bde05977b3631167028862bE2a173976CA11",
 }

@@ -302,3 +302,7 @@ NO_STATE_OVERRIDE = [
     Network.ZkSync,
     Network.ZKsyncSepolia,
 ]
+
+MAX_GAS_LIMIT = {
+    Network.HyperEVM: 5_000_000
+}

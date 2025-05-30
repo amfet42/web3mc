@@ -15,6 +15,7 @@ from web3.types import BlockIdentifier
 from .abi import multicall2_abi, multicall3_abi
 from .call import Call, decode_return_data
 from .constants import (
+    MAX_GAS_LIMIT,
     MULTICALL2_ADDRESSES,
     MULTICALL2_BYTECODE,
     MULTICALL3_ADDRESSES,
@@ -56,6 +57,10 @@ class Multicall:
             self.version = 2
         else:
             raise ValueError("Connected to unknown chain id!")
+
+        if self.chain_id in MAX_GAS_LIMIT:
+            logger.info("Using network max gas limit")
+            self.gas_limit = MAX_GAS_LIMIT[self.chain_id]
 
     def aggregate(
         self,

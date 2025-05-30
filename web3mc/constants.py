@@ -158,6 +158,7 @@ class Network(IntEnum):
     ZkSync = 324
     OptimismGorli = 420
     Astar = 592
+    HyperEVM = 999
     Metis = 1088
     Moonbeam = 1284
     Moonriver = 1285
@@ -261,6 +262,7 @@ MULTICALL3_ADDRESSES: Dict[int, str] = {
     Network.ZkSync: "0x413fEb613604D46586c22801949A5b88b224c260",
     Network.OptimismGorli: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Astar: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    Network.HyperEVM: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Metis: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Moonbeam: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Moonriver: "0xcA11bde05977b3631167028862bE2a173976CA11",

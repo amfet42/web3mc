@@ -304,5 +304,6 @@ NO_STATE_OVERRIDE = [
 ]
 
 MAX_GAS_LIMIT = {
-    Network.HyperEVM: 5_000_000
+    Network.Arbitrum: 2_000_000_000,
+    Network.HyperEVM: 5_000_000,
 }

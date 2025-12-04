@@ -33,7 +33,7 @@ class Multicall:
         provider_url: str | None = None,
         batch: int = 100,
         max_retries: int = 3,
-        gas_limit: int = 50_000_000,
+        gas_limit: int = 15_000_000,
         _semaphore: int = 1000,
     ):
         self.web3 = Web3(HTTPProvider(provider_url))

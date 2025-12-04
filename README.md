@@ -68,7 +68,7 @@ multicall = Multicall(
     provider_url="<your custom provider url>",  # Overrides env parameter
     batch=100,  # can lead to overflow
     max_retries=3,  # retries without use_try (aggregate function in contract)
-    gas_limit=50_000_000,  # gas limit for calls
+    gas_limit=15_000_000,  # gas limit for calls
     _semaphore=1000,  # max concurrent coroutines, change carefully!
 )
 

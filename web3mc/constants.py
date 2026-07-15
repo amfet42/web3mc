@@ -137,6 +137,7 @@ class Network(IntEnum):
     RSK = 30
     RSKTestnet = 31
     Kovan = 42
+    XDC = 50
     Bsc = 56
     OKC = 66
     OptimismKovan = 69
@@ -147,9 +148,13 @@ class Network(IntEnum):
     Coston2Testnet = 114
     Fuse = 122
     Heco = 128
+    Unichain = 130
     Polygon = 137
+    Monad = 143
     Sonic = 146
     Xlayer = 196
+    XLayer = 196
+    Tac = 239
     Fantom = 250
     Fraxtal = 252
     Boba = 288
@@ -158,7 +163,9 @@ class Network(IntEnum):
     ZkSync = 324
     OptimismGorli = 420
     Astar = 592
+    Stable = 988
     HyperEVM = 999
+    Hyperliquid = 999
     Metis = 1088
     Moonbeam = 1284
     Moonriver = 1285
@@ -171,15 +178,19 @@ class Network(IntEnum):
     Base = 8453
     EvmosTestnet = 9000
     Evmos = 9001
+    Plasma = 9745
     Arbitrum = 42161
     Celo = 42220
     Oasis = 42262
+    Etherlink = 42793
     AvalancheFuji = 43113
     Avax = 43114
+    Avalanche = 43114
     Ink = 57073
     GodwokenTestnet = 71401
     Godwoken = 71402
     Mumbai = 80001
+    Plume = 98866
     Taiko = 167000
     ArbitrumRinkeby = 421611
     ArbitrumGorli = 421613
@@ -242,6 +253,7 @@ MULTICALL3_ADDRESSES: Dict[int, str] = {
     Network.RSK: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.RSKTestnet: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Kovan: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    Network.XDC: "0x0B1795ccA8E4eC4df02346a082df54D437F8D9aF",
     Network.Bsc: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.OKC: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.OptimismKovan: "0xcA11bde05977b3631167028862bE2a173976CA11",
@@ -252,9 +264,12 @@ MULTICALL3_ADDRESSES: Dict[int, str] = {
     Network.Coston2Testnet: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Fuse: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Heco: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    Network.Unichain: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Polygon: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    Network.Monad: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Sonic: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Xlayer: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    Network.Tac: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Fantom: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Fraxtal: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Boba: "0xcA11bde05977b3631167028862bE2a173976CA11",
@@ -262,6 +277,7 @@ MULTICALL3_ADDRESSES: Dict[int, str] = {
     Network.ZkSync: "0x413fEb613604D46586c22801949A5b88b224c260",
     Network.OptimismGorli: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Astar: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    Network.Stable: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.HyperEVM: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Metis: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Moonbeam: "0xcA11bde05977b3631167028862bE2a173976CA11",
@@ -274,15 +290,18 @@ MULTICALL3_ADDRESSES: Dict[int, str] = {
     Network.Base: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.EvmosTestnet: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Evmos: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    Network.Plasma: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Arbitrum: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Celo: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Oasis: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    Network.Etherlink: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.AvalancheFuji: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Avax: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Ink: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.GodwokenTestnet: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Godwoken: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Mumbai: "0xcA11bde05977b3631167028862bE2a173976CA11",
+    Network.Plume: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.Taiko: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.ArbitrumRinkeby: "0xcA11bde05977b3631167028862bE2a173976CA11",
     Network.ArbitrumGorli: "0xcA11bde05977b3631167028862bE2a173976CA11",

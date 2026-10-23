@@ -66,18 +66,31 @@ from web3mc import Multicall
 
 multicall = Multicall(
     provider_url="<your custom provider url>",  # Overrides env parameter
-    batch=100,  # can lead to overflow
-    max_retries=3,  # retries without use_try (aggregate function in contract)
+    batch=100,  # maximum calls per batch; must be a positive integer
+    max_retries=3,  # maximum total attempts, including the first attempt
     gas_limit=15_000_000,  # gas limit for calls
-    _semaphore=1000,  # max concurrent coroutines, change carefully!
+    _semaphore=1000,  # maximum concurrent batches per aggregate call
 )
 
 ```
 
+`batch`, `max_retries`, and `_semaphore` must be positive integers. Failed attempts
+cancel and await outstanding batches before retrying. Results retain input order.
 
 ## Testing
-Install dependencies, make sure you set `WEB3_HTTP_PROVIDER_URI` environment variable
+Install the locked dependencies and run the offline regression tests:
 
 ```shell
-pytest tests
+poetry install
+poetry run pytest tests -m "not integration"
 ```
+
+To run the full suite, set `WEB3_HTTP_PROVIDER_URI` to an Ethereum mainnet RPC endpoint:
+
+```shell
+export WEB3_HTTP_PROVIDER_URI=https://your-ethereum-rpc-endpoint
+poetry run pytest tests
+```
+
+Integration tests are skipped when the endpoint is unset. Historical-block tests require
+archive data and support for state overrides; RPC errors are reported as failures.

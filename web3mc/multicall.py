@@ -1,5 +1,4 @@
 import asyncio
-import functools
 import itertools
 import logging
 import time
@@ -9,7 +8,7 @@ from eth_typing import ChecksumAddress, HexStr
 from eth_utils import to_checksum_address
 from web3 import AsyncHTTPProvider, AsyncWeb3, HTTPProvider, Web3
 from web3.contract.contract import ContractFunction
-from web3.exceptions import ContractLogicError
+from web3.exceptions import ContractLogicError, Web3RPCError
 from web3.types import BlockIdentifier
 
 from .abi import multicall2_abi, multicall3_abi
@@ -36,13 +35,14 @@ class Multicall:
         gas_limit: int = 15_000_000,
         _semaphore: int = 1000,
     ):
-        self.web3 = Web3(HTTPProvider(provider_url))
-        self.async_web3 = AsyncWeb3(AsyncHTTPProvider(provider_url))
-
         self.batch = batch
         self.max_retries = max_retries
         self._semaphore = _semaphore
         self.gas_limit = gas_limit
+        self._validate_batch_settings()
+
+        self.web3 = Web3(HTTPProvider(provider_url))
+        self.async_web3 = AsyncWeb3(AsyncHTTPProvider(provider_url))
 
         self.chain_id: int = self.web3.eth.chain_id
         if self.chain_id in MULTICALL3_ADDRESSES:
@@ -61,6 +61,12 @@ class Multicall:
         if self.chain_id in MAX_GAS_LIMIT:
             logger.info("Using network max gas limit")
             self.gas_limit = MAX_GAS_LIMIT[self.chain_id]
+
+    def _validate_batch_settings(self):
+        for name in ("batch", "max_retries", "_semaphore"):
+            value = getattr(self, name)
+            if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+                raise ValueError(f"{name} must be a positive integer.")
 
     def aggregate(
         self,
@@ -168,32 +174,36 @@ class Multicall:
         block_identifier: BlockIdentifier,
         target_address_list: list[ChecksumAddress] | None = None,
     ) -> list:
+        self._validate_batch_settings()
         if target_address_list:
             assert len(target_address_list) == len(call_list), "Lists of addresses and calls should have same length."
 
         call = Call(call_list, target_address_list)
         batch = self.batch
-        retries = 0
-        tasks = []
+        batches = [
+            (call.encoded_data[i : i + batch], call.return_types[i : i + batch])
+            for i in range(0, len(call.encoded_data), batch)
+        ]
+        # Keep the semaphore local so repeated aggregate() calls can use different event loops.
+        semaphore = asyncio.Semaphore(self._semaphore)
 
-        for i in range(0, len(call.encoded_data), batch):
-            call_data = call.encoded_data[i : i + batch]
-            return_types = call.return_types[i : i + batch]
-            tasks.append(functools.partial(self._parse_aggregate, use_try, call_data, return_types, block_identifier))
+        async def run_batch(call_data, return_types):
+            async with semaphore:
+                return await self._parse_aggregate(use_try, call_data, return_types, block_identifier)
 
-        while True:
-            if retries > self.max_retries - 1:
-                raise MaxRetriesExceeded(f"Failed to call web3multicall after {retries} attempts.")
-
-            task_group = asyncio.gather(*[t() for t in tasks])
-            async with asyncio.Semaphore(self._semaphore):
-                try:
-                    results = await task_group
-
-                except (ContractLogicError, ValueError) as e:
-                    logger.error(f"Error calling web3multicall:'{e}', retrying")
-                    task_group.cancel()
-                    retries += 1
-                    continue
-
-            return list(itertools.chain(*results))
+        for attempt in range(1, self.max_retries + 1):
+            tasks = [asyncio.create_task(run_batch(*args)) for args in batches]
+            try:
+                results = await asyncio.gather(*tasks)
+                return list(itertools.chain(*results))
+            except (ContractLogicError, Web3RPCError, ValueError) as e:
+                if attempt == self.max_retries:
+                    raise MaxRetriesExceeded(f"Failed to call web3multicall after {attempt} attempts.") from e
+                logger.error(f"Error calling web3multicall:'{e}', retrying")
+            finally:
+                # gather() does not cancel siblings after one task raises. Drain them before
+                # retrying or returning an error, including when the caller cancels this call.
+                for task in tasks:
+                    if not task.done():
+                        task.cancel()
+                await asyncio.gather(*tasks, return_exceptions=True)

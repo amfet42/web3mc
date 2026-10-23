@@ -94,3 +94,13 @@ poetry run pytest tests
 
 Integration tests are skipped when the endpoint is unset. Historical-block tests require
 archive data and support for state overrides; RPC errors are reported as failures.
+
+## Publishing
+
+Publishing a GitHub release runs the `publish` workflow for that release's tag. The
+tag must match the package version in `pyproject.toml`, for example `v0.1.15`.
+
+To retry a release after fixing the workflow, merge the fix into `main`, then open
+**Actions → publish → Run workflow**. Select `main` and enter the existing release
+tag in `release_tag`. This runs the updated workflow and builds the tagged source;
+rerunning an old failed job uses its original workflow definition.

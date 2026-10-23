@@ -1,5 +1,31 @@
+import asyncio
+import os
+
 import pytest
 from web3.auto import w3
+
+from web3mc import Multicall
+
+
+@pytest.fixture(scope="module")
+def multicall_factory():
+    if not os.environ.get("WEB3_HTTP_PROVIDER_URI"):
+        pytest.skip("Set WEB3_HTTP_PROVIDER_URI to run Ethereum mainnet integration tests")
+    instances = []
+
+    def create(**kwargs):
+        instance = Multicall(**kwargs)
+        instances.append(instance)
+        return instance
+
+    yield create
+    for instance in instances:
+        asyncio.run(instance.async_web3.provider.disconnect())
+
+
+@pytest.fixture(scope="module")
+def multicall(multicall_factory):
+    return multicall_factory()
 
 
 @pytest.fixture(scope="module")
